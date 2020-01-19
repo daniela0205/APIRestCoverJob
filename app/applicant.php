@@ -10,7 +10,7 @@ class applicant extends Model
         'status',
         'ranking',
         'feedback',
-        'category_id',
-        'employer_id',
+        'job_id',
+        'employee_id',
     ];
 }
