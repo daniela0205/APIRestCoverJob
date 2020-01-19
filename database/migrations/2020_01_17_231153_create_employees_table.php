@@ -15,11 +15,11 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('phone');
-            $table->string('eircode');
-            $table->string('levelEdu');
-            $table->string('certification');
-            $table->string('cv');
+            $table->string('phone')->nullable();
+            $table->string('eircode')->nullable();
+            $table->string('levelEdu')->nullable();
+            $table->string('certification')->nullable();
+            $table->string('cv')->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

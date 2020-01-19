@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobsTable extends Migration
+class CreateApplicantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('applicants', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->text('details')->nullable();
-            $table->string('eircode');
-            $table->string('city');
-            $table->datetime('start_date');
-            $table->datetime('end_date');
-            $table->decimal('payment', 8, 2);
-            $table->boolean('status');
+            $table->enum('status', ['accept', 'standby', 'wait', 'approved','reject']);
+            $table->enum('ranking', ['1', '2', '3', '4','5'])->nullable();
+            $table->string('feedback')->nullable();           
             $table->timestamps();
             $table->integer('category_id')->unsigned();
             $table->integer('employer_id')->unsigned();
@@ -38,6 +33,6 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('applicants');
     }
 }
