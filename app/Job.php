@@ -18,4 +18,14 @@ class Job extends Model
         'category_id',
         'employer_id',
     ];
+
+    public function category()
+    {
+        return $this->hasOne(category::class);
+    }
+
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class);
+    }
 }

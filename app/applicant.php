@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class applicant extends Model
+class Applicant extends Model
 {
     protected $fillable = [
         'status',
@@ -13,4 +13,12 @@ class applicant extends Model
         'job_id',
         'employee_id',
     ];
+
+    public function job(){
+        return $this->belongsTo(Job::class);
+    }
+
+    public function employees(){
+        return $this->belongsToMany(Employee::class);
+    }
 }

@@ -19,8 +19,10 @@ class CreateJobsTable extends Migration
             $table->text('details')->nullable();
             $table->string('eircode');
             $table->string('city');
-            $table->datetime('start_date');
-            $table->datetime('end_date');
+            $table->date('start_date');
+            $table->time('start_time')->nullable();
+            $table->date('end_date');
+            $table->time('end_time')->nullable();
             $table->decimal('payment', 8, 2);
             $table->boolean('status');
             $table->timestamps();

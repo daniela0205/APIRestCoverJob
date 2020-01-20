@@ -14,4 +14,14 @@ class Employee extends Model
         'CV',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    public function applicants(){
+        return $this->hasMany(Applicant::class);
+    }
 }

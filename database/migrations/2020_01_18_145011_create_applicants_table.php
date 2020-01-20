@@ -19,10 +19,10 @@ class CreateApplicantsTable extends Migration
             $table->enum('ranking', ['1', '2', '3', '4','5'])->nullable();
             $table->string('feedback')->nullable();           
             $table->timestamps();
-            $table->integer('category_id')->unsigned();
-            $table->integer('employer_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('employer_id')->references('id')->on('employers');
+            $table->integer('job_id')->unsigned();
+            $table->integer('employee_id')->unsigned();
+            $table->foreign('job_id')->references('id')->on('jobs');
+            $table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 
