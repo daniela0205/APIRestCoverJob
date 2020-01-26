@@ -14,17 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $category = Category::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->showAll($category);
     }
 
     /**
@@ -35,7 +27,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name'=> 'max:255',
+          
+        ]);
+
+   
+        $category = Category::create($data);
+
+        return $this->showOne($category, 201);
     }
 
     /**
@@ -46,19 +46,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return $this->showOne($category);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +60,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate([
+            'name'=> 'max:255',
+          
+        ]);
+
+   
+        $category->fill($data);
+
+        if (!$category->isDirty()) {
+            return $this->errorResponse('Please specify at least one different value', 422);
+        }
+
+        $category->save();
+
+        return $this->showOne($category);      
     }
 
     /**
@@ -80,6 +85,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return $this->showOne($category);
     }
 }

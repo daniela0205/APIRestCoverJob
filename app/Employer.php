@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\Job;
 use Illuminate\Database\Eloquent\Model;
 
 class Employer extends Model
@@ -21,6 +21,7 @@ class Employer extends Model
     public function jobs()
     {
         return $this->hasMany(Job::class);
+      
     }
 
 }
