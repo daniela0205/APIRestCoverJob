@@ -41,6 +41,11 @@ class Job extends Model
     {
         return $this->hasMany(Applicant::class);
     }
+
+    public function name(){
+        $namejob = DB::table('jobs')->select('name')->get();
+        return $namejob;
+    }
   
 
   

@@ -28,9 +28,11 @@ class JobEmployeeApplicantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Job $job, Employee $employee )
-    {
-        //falta la condicional que no este ya registrado ese empleado dos veces
+    { 
         
+        if ($job->applicants->contains('employee_id',$employee->id)) {
+            return $this->errorResponse('Thit user already applied for this job', 404);
+        }
         $applicant = Applicant::create([
             'status' => 'accept',
             'job_id' => $job->id,
