@@ -40,4 +40,11 @@ Route::apiResource('jobs.applicants', 'Job\JobApplicantController', ['only' => [
 
 
 //Applicants
+Route::group(['middleware' => 'auth:api'], function() {
 Route::apiResource('applicants','Applicant\ApplicantController');
+});
+
+// User
+Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');

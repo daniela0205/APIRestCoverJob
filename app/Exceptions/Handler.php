@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Exceptions;
+
 use App\Traits\ApiResponser;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -68,6 +71,11 @@ class Handler extends ExceptionHandler
         $errors = $exception->validator->errors()->getMessages();
 
         return $this->errorResponse($errors, 422);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response()->json(['error' => 'Unauthenticated'], 401);
     }
 
 }

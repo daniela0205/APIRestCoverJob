@@ -41,7 +41,7 @@ class EmployerJobController extends Controller
             'eircode'=> 'max:255',
             'city'=> 'max:255',
             'start_date'=> 'required|date_format:Y-m-d',
-            'start_time'=>'required|date_format:H:i:s',
+            'start_time'=>'required|date_format:H:i',
             'end_date'=>'date_format:Y-m-d|after_or_equal:start_date',
             'end_time'=>'date_format:H:i:s',
             'payment'=>'required|numeric|between:0,99.99',

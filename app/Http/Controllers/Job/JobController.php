@@ -16,17 +16,14 @@ class JobController extends Controller
      */
     public function index()
     {
-       $job=  DB::table('jobs')->select('id','name','city','start_date')->get();
-     //  $name = $job->name(); 
       
-       // $date_currenly = strtotime(date("d-m-Y H:i:00",time()));
-       //$date_currenly = date("d-m-Y H:i:00",time())c;
-       // $job = Job::all();
-       //$job = Job::all()->whereDate()
-      // DB::table('users')
-       //->whereDate('created_at', '2016-12-31')
-       //->get();
-       // return $date_currenly;
+      $job= Job::all();
+      //  $job=  DB::table('jobs')->select('id','name','city','start_date','start_time')
+      //  ->where('start_date','>=', date('Y-m-d'))
+      //  ->where('start_time','>=', date('h:i'))
+      //  ->get();
+
+      
        return $this->showAll($job);
     }
 

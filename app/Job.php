@@ -5,7 +5,7 @@ namespace App;
 use App\Employer;
 use App\Category;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 
 class Job extends Model
 {
@@ -42,11 +42,7 @@ class Job extends Model
         return $this->hasMany(Applicant::class);
     }
 
-    public function name(){
-        $namejob = DB::table('jobs')->select('name')->get();
-        return $namejob;
-    }
-  
+   
 
   
 }
