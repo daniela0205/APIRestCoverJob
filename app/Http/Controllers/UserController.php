@@ -14,9 +14,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+       $users = User::all();
 
         return $this->showAll($users);
+
+       // $user = auth()->user();
+
+        
+        //return $this->showOne($user, 201);
+
     }
 
 
@@ -95,5 +101,27 @@ class UserController extends Controller
         $user->delete();
 
         return $this->showOne($user);
+    }
+
+    public function isEmployee(User $user){
+        $employee = $user->employee;
+        if (!$employee) {
+            return $this->errorResponse('No find this user', 400);
+        }
+
+        return $this->showOne($employee);
+       
+    }
+
+
+
+    public function isEmployer(User $user){
+        $employer = $user->employer;
+        if (!$employer) {
+            return $this->errorResponse('No find this user', 400);
+        }
+
+        return $this->showOne($employer);
+       
     }
 }

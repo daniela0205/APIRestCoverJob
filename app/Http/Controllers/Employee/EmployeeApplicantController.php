@@ -22,6 +22,9 @@ class EmployeeApplicantController extends Controller
         return $this->showAll($applicants);
     }
 
+
+    
+
    
 
     /**

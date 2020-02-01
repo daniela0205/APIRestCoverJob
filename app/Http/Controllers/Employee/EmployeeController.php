@@ -16,9 +16,17 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = Employee::all();
 
-        return $this->showAll($employee);
+        try {
+            $employee = Employee::all();
+            return $this->showAll($employee);
+
+        } catch (Exception $e) {
+            report($e);
+    
+            return false;
+        }
+       
     }
 
 

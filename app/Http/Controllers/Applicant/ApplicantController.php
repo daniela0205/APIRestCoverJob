@@ -43,7 +43,21 @@ class ApplicantController extends Controller
      */
     public function update(Request $request, applicant $applicant)
     {
-        //
+        $data = $request->validate([
+            'status'=> 'max:255',
+            'ranking'=> 'integer',
+            'feedback'=> 'max:255',
+      
+        ]);
+      
+
+
+        $applicant->fill($request->only(['status','ranking','feedback']));
+        
+        $applicant->save();
+
+        return $this->showOne($applicant);
     }
+  
 
 }

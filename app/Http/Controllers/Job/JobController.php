@@ -16,12 +16,11 @@ class JobController extends Controller
      */
     public function index()
     {
-      
-      $job= Job::all();
-      //  $job=  DB::table('jobs')->select('id','name','city','start_date','start_time')
-      //  ->where('start_date','>=', date('Y-m-d'))
-      //  ->where('start_time','>=', date('h:i'))
-      //  ->get();
+    $job= Job::all();
+    //    $job=  DB::table('jobs')->select('id','name','city','start_date','start_time')
+    //    ->where('start_date','>=', date('Y-m-d'))
+    //    ->where('start_time','>=', date('h:i'))
+    //    ->get();
 
       
        return $this->showAll($job);
@@ -37,5 +36,44 @@ class JobController extends Controller
     {
         return $this->showOne($job);
     }
+
+    public function ShowJobfromtoday()
+    {
+      // $job= Job::all();
+       $job=  DB::table('jobs')->select('id','name','city','start_date','start_time')
+       ->where('start_date','>=', date('Y-m-d'))
+       ->where('start_time','>=', date('h:i'))
+       ->get();
+
+      
+       return $this->showAll($job);
+    }
+
+    public function serchby($q){
+        
+        $jobs = Jobs::where('name', '%'.$q.'%')
+        ->orWhere ('city', 'LIKE', '%'.$q.'%' )->get();
+     
+      return $this->showAll($jobs);
+        
+           
+   
+    }
+
+
+    public function serchby2($q){
+        
+        $jobs = Jobs::where ( 'name', 'LIKE', '%' . $q . '%' )
+        ->orWhere ( 'city', 'LIKE', '%' . $q . '%' )
+        ->where(function ($query) {
+            $query->where('city', 'LIKE', '%' . $q . '%' )
+                  ->orWhere('category_id', 'LIKE', '%' . $q . '%' );
+        })->get();        
+    
+        return $this->showAll($jobs);
+    }
+
+
+    
 
 }

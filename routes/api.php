@@ -17,6 +17,11 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 Route::apiresource('users','UserController');
+Route::get('useremployee/{user}', 'UserController@isEmployee');
+Route::get('useremployer/{user}', 'UserController@isEmployer');
+Route::apiResource('users.employees','UserEmployeeController');
+
+
 
 //Employee
 Route::apiResource('employers','Employer\EmployerController');
@@ -35,8 +40,12 @@ Route::apiresource('categories','CategoryController');
 
 //Job
 Route::apiresource('jobs','Job\JobController');
+Route::get('jobsOnDate', 'Job\JobController@ShowJobfromtoday');
+Route::get('jobsSearch/{q}', 'Job\JobController@serchby');
+Route::get('jobsSearch2/{q}', 'Job\JobController@serchby2');
 Route::apiResource('jobs.employees.applicants', 'Job\JobEmployeeApplicantController', ['only' => ['store']]);
 Route::apiResource('jobs.applicants', 'Job\JobApplicantController', ['only' => ['index', 'update']]);
+
 
 
 //Applicants
@@ -48,3 +57,4 @@ Route::apiResource('applicants','Applicant\ApplicantController');
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
+Route::post('userlog', 'Auth\LoginController@userlog');

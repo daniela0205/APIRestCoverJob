@@ -26,7 +26,8 @@ trait ApiResponser
     function showOne(Model $instance, $code = 200)
     {
 
-        return $this->successResponse(['data' => $instance], $code);
+      return $this->successResponse(['data' => $instance], $code);
+  //  return $this->successResponse( $instance, $code);
     }
 
     function showMessage($message, $code = 200)
