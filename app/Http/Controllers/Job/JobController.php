@@ -17,11 +17,6 @@ class JobController extends Controller
     public function index()
     {
     $job= Job::all();
-    //    $job=  DB::table('jobs')->select('id','name','city','start_date','start_time')
-    //    ->where('start_date','>=', date('Y-m-d'))
-    //    ->where('start_time','>=', date('h:i'))
-    //    ->get();
-
       
        return $this->showAll($job);
     }
@@ -41,18 +36,21 @@ class JobController extends Controller
     {
       // $job= Job::all();
        $job=  DB::table('jobs')->select('id','name','city','start_date','start_time')
-       ->where('start_date','>=', date('Y-m-d'))
-       ->where('start_time','>=', date('h:i'))
-       ->get();
+       ->where('start_date','>=', date('Y-m-d')) ->get();
 
+      //  ->where('start_time','>=', date('h:i'))
+      
       
        return $this->showAll($job);
     }
 
-    public function serchby($q){
+    public function serchby(Request $request){
         
-        $jobs = Jobs::where('name', '%'.$q.'%')
-        ->orWhere ('city', 'LIKE', '%'.$q.'%' )->get();
+        
+        $q = $request->input('query');
+       $jobs = DB::table('jobs')->where('name','LIKE','%'.$q.'%')
+              ->orWhere ( 'city','LIKE','%'.$q.'%' )->get();
+        
      
       return $this->showAll($jobs);
         
@@ -60,20 +58,52 @@ class JobController extends Controller
    
     }
 
-
-    public function serchby2($q){
+    public function serchbyCity(Request $request){
         
-        $jobs = Jobs::where ( 'name', 'LIKE', '%' . $q . '%' )
-        ->orWhere ( 'city', 'LIKE', '%' . $q . '%' )
-        ->where(function ($query) {
-            $query->where('city', 'LIKE', '%' . $q . '%' )
-                  ->orWhere('category_id', 'LIKE', '%' . $q . '%' );
-        })->get();        
+        
+      $q = $request->input('query');
+     $jobs = DB::table('jobs')->where('city','LIKE','%'.$q.'%')->get();
+      
+   
+    return $this->showAll($jobs);
+     
+  }
+
+  public function serchbyName(Request $request){
+        
+        
+    $q = $request->input('query');
+   $jobs = DB::table('jobs')->where('name','LIKE','%'.$q.'%')->get();
     
-        return $this->showAll($jobs);
+ 
+  return $this->showAll($jobs);
+   
+}
+
+public function serchbyCategory(Request $request){
+        
+        
+  $q = $request->input('query');
+ $jobs = DB::table('jobs')->where('category_id','LIKE','%'.$q.'%')->get();
+  
+
+return $this->showAll($jobs);
+ 
+}
+
+
+
+    public function serchbyDate(Request $request){
+      $q = $request->input('query');
+
+      $job=  DB::table('jobs')
+     ->where('start_date','>=', $q)->get();
+
+     //  ->where('start_time','>=', date('h:i'))
+     
+     
+      return $this->showAll($job);
+
+        
     }
-
-
-    
-
 }

@@ -36,22 +36,26 @@ Route::apiresource('employees.applicants','Employee\EmployeeApplicantController'
 
 
 //Category
-Route::apiresource('categories','CategoryController');
+Route::apiresource('categories','Category/CategoryController');
+
 
 //Job
 Route::apiresource('jobs','Job\JobController');
 Route::get('jobsOnDate', 'Job\JobController@ShowJobfromtoday');
-Route::get('jobsSearch/{q}', 'Job\JobController@serchby');
-Route::get('jobsSearch2/{q}', 'Job\JobController@serchby2');
+Route::get('jobsSearch', 'Job\JobController@serchby');
+Route::get('jobsSearchbyDate', 'Job\JobController@serchbyDate');
+Route::get('jobsSearchbyCity', 'Job\JobController@serchbyCity');
+Route::get('jobsSearchbyName', 'Job\JobController@serchbyName');
+Route::get('jobsSearchbyCategory', 'Job\JobController@serchbyCategory');
 Route::apiResource('jobs.employees.applicants', 'Job\JobEmployeeApplicantController', ['only' => ['store']]);
 Route::apiResource('jobs.applicants', 'Job\JobApplicantController', ['only' => ['index', 'update']]);
-
+Route::apiresource('jobscategories','Job\JobCategoryController');
 
 
 //Applicants
-Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => 'auth:api'], function() {});
 Route::apiResource('applicants','Applicant\ApplicantController');
-});
+
 
 // User
 Route::post('register', 'Auth\RegisterController@register');
